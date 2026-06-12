@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: interior-test
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+logging:
+  level:
+    org.hibernate.SQL: debug
