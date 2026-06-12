@@ -168,6 +168,16 @@ public class Post extends BaseTimeEntity {
         }
     }
 
+    public void increaseBookmarkCount() {
+        this.bookmarkCount++;
+    }
+
+    public void decreaseBookmarkCount() {
+        if (this.bookmarkCount > 0) {
+            this.bookmarkCount--;
+        }
+    }
+
     public void blind() {
         this.status = PostStatus.BLINDED;
     }
