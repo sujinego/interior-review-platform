@@ -7,12 +7,14 @@ import com.portfolio.interior.domain.post.dto.PostSearchCondition;
 import com.portfolio.interior.domain.post.service.PostService;
 import com.portfolio.interior.global.common.ApiResponse;
 import com.portfolio.interior.global.common.PageResponse;
+import com.portfolio.interior.global.security.CustomUserDetails;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,7 +49,8 @@ public class PostController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public ApiResponse<Long> createPost(@RequestParam Long userId, @Valid @RequestBody PostCreateRequest request) {
-        return ApiResponse.success(postService.createPost(userId, request));
+    public ApiResponse<Long> createPost(@AuthenticationPrincipal CustomUserDetails userDetails,
+                                          @Valid @RequestBody PostCreateRequest request) {
+        return ApiResponse.success(postService.createPost(userDetails.getId(), request));
     }
 }
